@@ -9,9 +9,11 @@ public class Grid {
     final int BOX = 2;
     final int DESTINATION = 3;
     final int PLAYER = 4;
+    final int ENEMY = 5;
     final int MAX_BOXES = 8;
     Tile[][] grid;
     Box[] boxes;
+    Enemy[] enemies;
     Destination[] destinations;
     int boxCount;
     int height = 0;
@@ -28,12 +30,14 @@ public class Grid {
         if (boxCount > MAX_BOXES) boxCount = MAX_BOXES;
         this.boxCount = boxCount;
         boxes = new Box[boxCount];
+        enemies = new Enemy[boxCount];
         destinations = new Destination[boxCount];
         this.height = height;
         this.width = width;
         grid = new Tile[width][height];
         createBoxes();
         createDestinations();
+        createEnemies();
         player.resetPosition();
         updateGrid();
     }
@@ -74,6 +78,8 @@ public class Grid {
     public boolean isBox(int x, int y) {
         return grid[x][y].getStatus() == BOX;
     }
+
+    public boolean isEnemy(int x, int y) { return grid[x][y].getStatus() == ENEMY; }
 
     public boolean isBoxRaw(int x, int y) //allows you to check if a box is at a position before grid is set up
     {
@@ -126,6 +132,20 @@ public class Grid {
                 }
             }
             destinations[i] = new Destination(x, y, this);
+        }
+    }
+
+    public void createEnemies() {
+        for (int i = 0; i < boxCount; i++) {
+            int x = Randomizer.nextInt(width - 2) + 1;
+            int y = Randomizer.nextInt(height - 2) + 1;
+            for (int j = 0; j < i; j++) {
+                while (((x == enemies[j].getX() && y == enemies[j].getY())) || isBox(x, y)) {
+                    x = Randomizer.nextInt(width - 2) + 1;
+                    y = Randomizer.nextInt(height - 2) + 1;
+                }
+            }
+            enemies[i] = new Enemy(x, y, this, ":rat:");
         }
     }
 

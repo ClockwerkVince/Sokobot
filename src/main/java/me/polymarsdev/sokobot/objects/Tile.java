@@ -7,6 +7,7 @@ public class Tile
     final int BOX = 2;
     final int DESTINATION = 3;
     final int PLAYER = 4;
+    final int ENEMY = 5;
     int color = 0;
     int status = 0;
     String playerEmote;
