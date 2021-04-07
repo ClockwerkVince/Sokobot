@@ -51,6 +51,9 @@ public class Player {
 
     public boolean moveDown() {
         if (!currentGrid.isWall(x, y + 1)) {
+            if(currentGrid.isEnemy(x,y+1)) {
+
+            }
             if (currentGrid.isBox(x, y + 1)) {
                 if (currentGrid.getBox(x, y + 1).moveDown()) {
                     y += 1;

@@ -140,7 +140,7 @@ public class Grid {
             int x = Randomizer.nextInt(width - 2) + 1;
             int y = Randomizer.nextInt(height - 2) + 1;
             for (int j = 0; j < i; j++) {
-                while (((x == enemies[j].getX() && y == enemies[j].getY())) || isBox(x, y)) {
+                while (((x == enemies[j].getX() && y == enemies[j].getY())) || isBoxRaw(x, y)) {
                     x = Randomizer.nextInt(width - 2) + 1;
                     y = Randomizer.nextInt(height - 2) + 1;
                 }
@@ -155,6 +155,12 @@ public class Grid {
                 grid[j][i] = new Tile(GROUND, playerEmote);
                 if (j == 0 || j == width - 1 || i == 0 || i == height - 1) {
                     grid[j][i] = new Tile(WALL, color, playerEmote);
+                }
+                for (int k = 0; k < boxCount; k++) {
+                    if (enemies[k].getX() == j && enemies[k].getY() == i) {
+                        grid[j][i] = new Tile(ENEMY, ":skull:");
+
+                    }
                 }
                 for (int k = 0; k < boxCount; k++) {
                     if (destinations[k].getX() == j && destinations[k].getY() == i) {

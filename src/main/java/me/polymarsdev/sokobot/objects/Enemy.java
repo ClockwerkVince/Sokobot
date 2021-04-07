@@ -4,6 +4,7 @@ public class Enemy {
 
     int x = 0;
     int y = 0;
+    int hp = 3;
     Grid currentGrid;
     String enemyEmoji;
     public Enemy(int x, int y, Grid currentGrid, String enemyEmoji) {
@@ -23,6 +24,10 @@ public class Enemy {
     }
     public String toString() {
         return enemyEmoji;
+    }
+    public void dealDamage() {
+        hp--;
+        if(hp >= 0) this.enemyEmoji = ":skull:";
     }
 
 
